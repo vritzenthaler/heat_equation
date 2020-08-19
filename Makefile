@@ -7,12 +7,12 @@ PY=/usr/include/python3.6
 BIND=`python3 -m pybind11 --includes`
 SUFF=`python3.6-config --extension-suffix`
 
-PREF=cython_example
+PREF=cython_heat
 FILE=cython_wrapper.cpp
 
 build_lib:
 	$(CC) $(CFLAGS) heat.cpp skyline/skyline.cpp -o libheat.so
-	$(CY) $(CYFLAGS) cython_example.pyx -o cython_wrapper.cpp
+	$(CY) $(CYFLAGS) $(PREF).pyx -o $(FILE)
 	$(CC) $(CFLAGS) $(BIND) -I $(PY) -I . $(FILE) -o $(PREF)$(SUFF) -L. -lheat -Wl,-rpath,.
 
 clean:
